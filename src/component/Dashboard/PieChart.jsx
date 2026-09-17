@@ -10,25 +10,25 @@ const cropStats = [
 
 const PieChart = () => {
   return (
-    <div className='flex-1 border border-gray-200 rounded-2xl p-6 bg-white flex flex-col justify-between box-border min-h-[340px]'>
+    <div className='flex min-w-0 flex-1 flex-col justify-between rounded-2xl border border-gray-200 bg-white p-4 box-border sm:p-6'>
       {/* 1. Header */}
-      <div className='flex items-center justify-between mb-4'>
+      <div className='mb-4 flex flex-wrap items-center justify-between gap-3'>
         <h3 className='font-[manrope] text-base font-semibold text-gray-900'>
           Farmers by Crop Type
         </h3>
         <button
           type='button'
-          className='border border-gray-300 rounded-xl px-4 py-2 text-xs font-[manrope] font-semibold text-gray-800 hover:bg-gray-50 transition-colors cursor-pointer'
+          className='shrink-0 rounded-xl border border-gray-300 px-3 py-2 text-xs font-[manrope] font-semibold text-gray-800 transition-colors hover:bg-gray-50 sm:px-4'
         >
           View All Farmers
         </button>
       </div>
 
       {/* 2. Donut & Legend Content */}
-      <div className='flex items-center justify-between gap-6 my-auto pt-2'>
-        
+      <div className='grid min-w-0 grid-cols-1 items-center gap-5 pt-2 sm:grid-cols-[minmax(0,1fr)_minmax(150px,1fr)]'>
+
         {/* Donut Chart Visual (Square container for perfect circle) */}
-        <div className='relative w-[210px] h-[210px] flex items-center justify-center shrink-0'>
+        <div className='relative mx-auto flex h-[min(42vw,190px)] w-[min(42vw,190px)] max-w-full items-center justify-center sm:mx-0'>
           <svg viewBox='0 0 42 42' className='w-full h-full transform -rotate-90'>
             {/* 1. Maize: 39.5% (Top-Right quadrant) */}
             <circle
@@ -96,9 +96,9 @@ const PieChart = () => {
         </div>
 
         {/* Legend List (Clean left/right alignment) */}
-        <div className='flex flex-col gap-3 flex-1 max-w-[220px]'>
+        <div className='flex min-w-0 w-full max-w-[260px] flex-col gap-3 justify-self-center sm:justify-self-stretch'>
           {cropStats.map((item) => (
-            <div key={item.name} className='flex items-center justify-between text-xs font-[manrope] w-full'>
+            <div key={item.name} className='flex w-full min-w-0 items-center justify-between gap-2 text-xs font-[manrope]'>
               <div className='flex items-center gap-2'>
                 <span
                   className='w-2.5 h-2.5 rounded-full shrink-0'
@@ -106,7 +106,7 @@ const PieChart = () => {
                 />
                 <span className='text-gray-600 font-medium'>{item.name}</span>
               </div>
-            
+
               <div className='flex items-center gap-1 shrink-0'>
                 <span className='text-gray-800 font-semibold'>{item.count}</span>
                 <span className='text-gray-400 font-normal'>({item.pct})</span>

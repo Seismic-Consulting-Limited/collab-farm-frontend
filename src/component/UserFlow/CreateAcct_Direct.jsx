@@ -19,7 +19,7 @@ export const CreateAcct_Direct = () => {
          
         <p className="mt-6 text-center text-sm text-gray-500">
         Already have an account? {" "}
-          <Link to='/login'  className="font-semibold underline text-gray-900 hover:underline">
+          <Link to='/login'  className="font-semibold underline text-[hsla(143,32%,28%,1)] hover:underline">
           Sign in
           </Link>
         </p>

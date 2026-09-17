@@ -27,7 +27,7 @@ const Information = () => {
       </div>
      <div className='flex items-center gap-4 w-full'>
         <div className='w-1/3'>
-        <Link to='/Uploaded_cred'>
+        <Link to='/upload'>
         <Backbttn />
         </Link>
         </div>

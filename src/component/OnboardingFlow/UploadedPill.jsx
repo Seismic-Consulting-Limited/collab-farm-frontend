@@ -1,15 +1,19 @@
 import React from 'react'
+import { useState } from 'react'
 import UploadedDocument from '../../assets/UploadedDocument.svg'
 
 const UploadedPill = ({
+  file,
   upload = UploadedDocument,
   fileName1,
-  fileSize = '1.2 MB',
+  fileSize,
   statusText = 'Document Uploaded',
   Label,
   sublabel,
-  onRemove,
+  onRemove
 }) => {
+  const isImage = file?.type?.startsWith('image/')
+const displayThumbnail = isImage ? URL.createObjectURL(file) : upload
   return (
     <div className='w-full flex flex-col gap-1.5'>
       {/* Top Label */}
@@ -23,9 +27,10 @@ const UploadedPill = ({
         {/* Left: Document Thumbnail + Details */}
         <div className='flex items-center gap-3.5 min-w-0 flex-1'>
           {/* Document Thumbnail */}
-          <div className='w-10 h-12 shrink-0 rounded-md overflow-hidden bg-gray-100 border border-gray-200 flex items-center justify-center'>
-            <img src={upload} alt='Document preview' className='w-full h-full object-cover' />
-          </div>
+         
+            <div className='w-10 h-12 shrink-0 rounded-md overflow-hidden bg-gray-100 border border-gray-200 flex items-center justify-center'>
+              <img src={displayThumbnail} alt='Document preview' className='w-full h-full object-cover' />
+            </div>
 
           {/* File Info */}
           <div className='flex flex-col gap-1 min-w-0 flex-1'>
@@ -33,7 +38,7 @@ const UploadedPill = ({
               {fileName1}
             </h4>
             <p className='text-xs text-gray-500 font-[manrope] leading-none'>
-              <span>{fileSize}</span>
+              <span>{(fileSize / (1024 * 1024)).toFixed(2)}MB</span>
               <span className='mx-1.5'>•</span>
               <span>{statusText}</span>
             </p>
@@ -43,7 +48,7 @@ const UploadedPill = ({
         {/* Right: Close / Remove Icon */}
         <button
           type='button'
-          onClick={()=> alert('cancelll')}
+          onClick={onRemove}
           className='shrink-0 text-gray-400 hover:text-gray-700 transition-colors p-1 cursor-pointer'
           aria-label='Remove file'
         >

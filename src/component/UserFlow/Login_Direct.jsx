@@ -19,7 +19,7 @@ export const Login_Direct= () => {
          
         <p className="mt-6 text-center text-sm text-gray-500">
         Don't have an account? {" "}
-          <Link to='/create_account'  className="font-semibold underline text-gray-900 hover:underline">
+          <Link to='/create_account'  className="font-semibold underline text-[hsla(143,32%,28%,1)] hover:underline">
           Create Account
           </Link>
         </p>

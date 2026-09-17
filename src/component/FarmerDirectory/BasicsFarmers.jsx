@@ -2,7 +2,7 @@ import React from 'react'
 
 const BasicsFarmers = ({ name, num, icon }) => {
   return (
-    <div className='flex flex-col gap-5 flex-1 px-4 first:pl-0 last:pr-0'>
+    <div className='flex flex-col gap-3 lg:gap-5 flex-1 px-4 first:pl-0 last:pr-0'>
       {/* Icon + Title */}
       <div className='flex items-center gap-2'>
         {icon && (

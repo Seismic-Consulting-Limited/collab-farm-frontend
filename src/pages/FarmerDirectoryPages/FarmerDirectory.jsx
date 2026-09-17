@@ -1,36 +1,49 @@
 import React from 'react'
-import AllFarmers from '../../component/FarmerDirectory/AllFarmers'
+import { useNavigate } from 'react-router-dom'
+import Dashboard_Header from '../../component/Dashboard/Dashboard_Header'
 import Buton from '../../component/Dashboard/Buton'
 import LongPile from '../../component/FarmerDirectory/LongPile'
-import Dashboard_Header from '../../component/Dashboard/Dashboard_Header'
-import LeftPill from '../../component/Dashboard/LeftPill'
-import TopPill from '../../component/Dashboard/TopPill'
+import AllFarmers from '../../component/FarmerDirectory/AllFarmers'
+import Pagination from '../../component/FarmerDirectory/Pagination'
 import Export from '../../assets/Export.svg'
 import Add from '../../assets/Add.svg'
-import Pagination from '../../component/FarmerDirectory/Pagination'
+
 const FarmerDirectory = () => {
+  const navigate = useNavigate()
+
   return (
-    <div>
-      <TopPill/>
-          <div className='lg:grid-cols-[240px_1fr] grid grid-cols-1'>
-      <LeftPill/>
-      {/*end of the links */}
-      
-      {/*right column */}
-      <div className='p-4'>
-        <div className='flex justify-between items-center mb-5'>
-<Dashboard_Header Greeting='Farmers' sub='Manage all farmers in your cooperative.'/>
-        <div className='flex gap-2'>
-<Buton label='Export' icon={Export}/>
-<Buton label='Add Farmer' icon={Add} variant='primary'/>
-        </div>
-        </div>
-        <LongPile/>
-        <AllFarmers/>
-        <div className='flex justify-center mt-5'>
-         <Pagination/>
+    <div className='flex flex-col gap-5'>
+      {/* Breadcrumb */}
+      <nav className='flex items-center gap-2 text-xs font-["Manrope",sans-serif] font-medium text-gray-900'>
+        <span>Farmer Directory</span>
+      </nav>
+
+      {/* Header & Action Buttons */}
+      <div className='lg:flex lg:justify-between lg:items-center'>
+        <Dashboard_Header
+          Greeting='Farmers'
+          sub='Manage all farmers in your cooperative.'
+        />
+        <div className='flex items-center justify-center lg:flex lg:items-center lg:justify-center gap-2 mt-3'>
+          <Buton label='Export' icon={Export} />
+          <Buton
+            label='Add Farmer'
+            icon={Add}
+            variant='primary'
+            onClick={() => navigate('/directory/add')}
+          />
         </div>
       </div>
+
+      {/* Summary Cards */}
+      <LongPile />
+
+      {/* Farmers Table */}
+      <AllFarmers />
+
+      {/* Pagination Footer */}
+      <div className='flex justify-center mt-2'>
+        <Pagination />
       </div>
     </div>
   )

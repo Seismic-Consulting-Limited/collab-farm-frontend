@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from 'react'
 import { Input } from './Input'
 import eyeSlash from '../../assets/eyeSlash.svg'
 import boldEye from '../../assets/boldEye.svg'
@@ -11,6 +12,7 @@ export const UpdatePassword = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
   }
+  const [showPassword, setShowPassword] = useState(false)
 
   return (
     <div className='w-full flex flex-col gap-4 box-border'>
@@ -24,7 +26,7 @@ export const UpdatePassword = () => {
       <form onSubmit={handleSubmit} className='flex flex-col gap-2.5'>
         {/* New Password + Requirement */}
         <div className='flex flex-col gap-1'>
-          <Input label='New Password' onIconClick={()=> alert('show password')} icon={boldEye} placeholder='*******' />
+          <Input label='New Password' onIconClick={() => setShowPassword(!showPassword)} type={showPassword ?'text':'password'} icon={boldEye} placeholder='*******' />
           
           <div className='flex items-center gap-1.5 pl-0.5'>
             <img src={Tick} alt='Tick Icon' className='w-3 h-3 object-contain' />
@@ -35,7 +37,7 @@ export const UpdatePassword = () => {
         </div>
 
         {/* Confirm Password */}
-        <Input label='Confirm Password' onIconClick={()=> alert('show password')} icon={eyeSlash} placeholder='*******' />
+        <Input label='Confirm Password' onIconClick={() => setShowPassword(!showPassword)} type={showPassword ?'text':'password'} icon={eyeSlash} placeholder='*******' />
 
         {/* Helper Note (natural flow, no manual line break bloat) */}
         <p className='mt-3 bg-[hsla(143,32%,86%,1)] border-[0.5px] border-[hsla(143,32%,75%,1)] text-[hsla(143,32%,22%,1)] font-[manrope] text-center text-xs rounded-xl px-3 py-2 leading-tight'>

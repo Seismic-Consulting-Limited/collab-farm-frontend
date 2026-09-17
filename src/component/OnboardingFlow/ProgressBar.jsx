@@ -2,7 +2,7 @@ import React from 'react'
 
 export const ProgressBar = ({totalSteps,currentStep,progress, className}) => {
   return (
-    <div className='w-full h-fit'>
+    <div className='w-full h-fit mb-5'>
         <div className='flex justify-between items-center'>
             <span className='w-full h-auto text-[hsla(0,0%,19%,1)] font-[manrope] text-base font-normal'>Step {currentStep} of {totalSteps}</span>
             <span className='h-auto w-fit text-[hsla(0,0%,19%,1)] font-[manrope] font-semibold text-base'>{progress}</span>
