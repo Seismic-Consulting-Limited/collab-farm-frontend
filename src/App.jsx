@@ -1,5 +1,7 @@
-import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { AuthProvider } from './context/AuthContext'
+import { OnboardingProvider } from './context/OnboardingContext'
+import { ProtectedRoute } from './component/ProtectedRoute'
 
 // Layouts
 import DashboardLayout from './Layouts/DashboardLayout'
@@ -16,7 +18,6 @@ import EditFarmer from './pages/FarmerDirectoryPages/EditFarmer'
 // Auth & Onboarding Views
 import { Login_page } from './pages/AuthPages/Login_page'
 import { CreateAcct_page } from './pages/AuthPages/CreateAcct_page'
-import { UpdatePassword_page } from './pages/AuthPages/UpdatePassword_page'
 import { BasicInfo } from './pages/AuthPages/BasicInfo'
 import ContactInfo from './pages/AuthPages/ContactInfo'
 import Upload_cred from './pages/AuthPages/Upload_cred'
@@ -25,33 +26,53 @@ import { Testing } from './pages/AuthPages/Testing'
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Default route redirect */}
-        <Route path='/' element={<Navigate to='/dashboard' replace />} />
+    <AuthProvider>
+      <OnboardingProvider>
+        <BrowserRouter>
+          <Routes>
+            {/* Default route redirect */}
+            <Route path='/' element={<Navigate to='/login' replace />} />
 
-        {/* Protected Dashboard Shell */}
-        <Route element={<DashboardLayout />}>
-          <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/directory' element={<FarmerDirectory />} />
-          <Route path='/directory/edit' element={<EditFarmer/>}/>
-          <Route path='/directory/:farmerId' element={<FarmerDetails/>}/>
-          <Route path='/directory/add' element={<AddFarmer />} />
-          <Route path='/loans' element={<LoansOverview />} />
-        </Route>
+            {/* Public Auth Routes */}
+            <Route path='/login' element={<Login_page />} />
+            <Route path='/register' element={<CreateAcct_page />} />
 
-        {/* Auth & Standalone Pages */}
-        <Route path='/investmentPref' element={<InvestmentPref />} />
-        <Route path='/login' element={<Login_page />} />
-        <Route path='/create_account' element={<CreateAcct_page />} />
-        <Route path='/UpdatePassword' element={<UpdatePassword_page />} />
-        <Route path='/onboarding_Basicinfo' element={<BasicInfo />} />
-        <Route path='/Contact_info' element={<ContactInfo />} />
-        <Route path='/upload' element={<Upload_cred />} />
-        <Route path='/uploaded_cred' element={<Uploaded_cred />} />
-        <Route path='/testing' element={<Testing />} />
-      </Routes>
-    </BrowserRouter>
+            {/* Protected Onboarding Routes - 3-step flow */}
+            <Route path='/onboarding_Basicinfo' element={
+              <ProtectedRoute requireOnboarding={true}>
+                <BasicInfo />
+              </ProtectedRoute>
+            } />
+            <Route path='/upload' element={
+              <ProtectedRoute requireOnboarding={true}>
+                <Upload_cred />
+              </ProtectedRoute>
+            } />
+            <Route path='/Contact_info' element={
+              <ProtectedRoute requireOnboarding={true}>
+                <ContactInfo />
+              </ProtectedRoute>
+            } />
+
+            {/* Protected Dashboard Routes */}
+            <Route element={<ProtectedRoute requireOnboarding={false}><DashboardLayout /></ProtectedRoute>}>
+              <Route path='/dashboard' element={<Dashboard />} />
+              <Route path='/directory' element={<FarmerDirectory />} />
+              <Route path='/directory/edit' element={<EditFarmer/>}/>
+              <Route path='/directory/:farmerId' element={<FarmerDetails/>}/>
+              <Route path='/directory/add' element={<AddFarmer />} />
+              <Route path='/loans' element={<LoansOverview />} />
+            </Route>
+
+            {/* Legacy Routes */}
+            <Route path='/investmentPref' element={<InvestmentPref />} />
+            <Route path='/create_account' element={<CreateAcct_page />} />
+            <Route path='/uploaded_cred' element={<Uploaded_cred />} />
+            <Route path='/testing' element={<Testing />} />
+          </Routes>
+        </BrowserRouter>
+      </OnboardingProvider>
+    </AuthProvider>
   )
 }
 

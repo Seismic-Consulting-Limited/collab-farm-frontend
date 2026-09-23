@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState } from 'react'
 import UploadingModal from './UploadingModal'
 import { useNavigate } from 'react-router-dom'
@@ -9,21 +8,24 @@ import DocumentUpload from '../../assets/DocumentUpload.svg'
 import Vector from '../../assets/Vector.svg'
 import { Submit_Bttn } from '../UserFlow/Submit_Bttn'
 import Backbttn from '../UserFlow/Backbttn'
-import { Issues } from '../UserFlow/Issues' 
+import { Issues } from '../UserFlow/Issues'
 import { Link } from 'react-router-dom'
-import UploadedPill from './UploadedPill' 
+import UploadedPill from './UploadedPill'
+import { useOnboarding } from '../../context/OnboardingContext'
 {/*
     import { Backbttn } from '../Backbttn'
     */}
     const UploadCred_form = () => {
+const { registrationFile, setRegistrationFile, proofOfAddressFile, setProofOfAddressFile } = useOnboarding()
 const [isCertUploading, setIsCertUploading] = useState(false)
 const [certProgress, setCertProgress] = useState(0)
 
 const [isAddressUploading, setIsAddressUploading]= useState(false)
 const [addressProgress, setAddressProgress] =useState(0)
-      
-      const [certFile, setCertFile] =useState(null);
-      const [addressFile, setAddressFile] =useState(null);
+
+      // Initialize local state from context for persistence
+      const [certFile, setCertFile] = useState(registrationFile);
+      const [addressFile, setAddressFile] = useState(proofOfAddressFile);
       
       const allowedTypes = [ 'application/pdf']
       const handleCertFileChange = (file) => {
@@ -42,6 +44,8 @@ const [addressProgress, setAddressProgress] =useState(0)
         clearInterval(timer)
         setIsCertUploading(false)
         setCertFile(file) // Flips to UploadedPill!
+        // Store actual File object in context
+        setRegistrationFile(file)
         return 100
       }
       return prev + 10 // Increase by 10% each tick
@@ -64,6 +68,8 @@ const timer =setInterval(()=>{
     clearInterval(timer)
     setIsAddressUploading(false)
     setAddressFile(file);
+    // Store actual File object in context
+    setProofOfAddressFile(file)
 return 100
    }
    return prev + 10
@@ -92,7 +98,7 @@ return 100
         
 
           {isCertUploading ?(
-            <UploadingModal progress={certProgress} remove={()=> setCertFile(null)}/>
+            <UploadingModal progress={certProgress} remove={()=> {setCertFile(null); setRegistrationFile(null);}}/>
           ) :
           !certFile ? ( 
             
@@ -107,12 +113,12 @@ return 100
             sublabel='(Official government issue license) *' 
             />
           ) : (
-            <UploadedPill  onRemove={()=> setCertFile(null)}
+            <UploadedPill  onRemove={()=> {setCertFile(null); setRegistrationFile(null);}}
             file={certFile} fileName1={certFile.name} fileSize={certFile.size} Label='Registration Certificate' sublabel = '(Official government issue license) *'/>
           )}
         
         {isAddressUploading ? (
-<UploadingModal progress={addressProgress} remove={()=> setAddressFile(null)}/>
+<UploadingModal progress={addressProgress} remove={()=> {setAddressFile(null); setProofOfAddressFile(null);}}/>
         ) :
         !addressFile ? (
           <UploadPill 
@@ -126,8 +132,8 @@ return 100
           sublabel='(Utility bill) *'
         />)
          :
-         (<UploadedPill  onRemove={()=> setAddressFile(null)}
- file={addressFile} fileName1={addressFile.name} fileSize={addressFile.size} Label='Proof of Address' sublabel = '(Utility bill) *'/>)}
+         (<UploadedPill  onRemove={()=> {setAddressFile(null); setProofOfAddressFile(null);}}
+         file={addressFile} fileName1={addressFile.name} fileSize={addressFile.size} Label='Proof of Address' sublabel = '(Utility bill) *'/>)}
         
       </div>
 
