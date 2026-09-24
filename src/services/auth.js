@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://bounce-emerald-drench.ngrok-free.dev';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://test-collab-farm.onrender.com';
 
 /**
  * Register a new user
@@ -64,7 +64,16 @@ export const loginUser = async (username, password) => {
     throw new Error(errorData.detail || errorData.message || 'Login failed');
   }
 
-  return response.json();
+  try {
+    return await response.json();
+  } catch (error) {
+    console.error('Failed to parse JSON response:', error);
+    console.log('Response status:', response.status);
+    console.log('Response headers:', response.headers);
+    const text = await response.text();
+    console.log('Response body:', text);
+    throw new Error('Failed to parse server response. Please check the backend response format.', { cause: error });
+  }
 };
 
 /**

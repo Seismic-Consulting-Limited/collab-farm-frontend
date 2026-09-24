@@ -1,4 +1,4 @@
-import React from 'react'
+import { motion } from 'framer-motion'
 import ArrowDown from '../../assets/ArrowDown.svg'
 
 const BarChart = () => {
@@ -57,10 +57,12 @@ const BarChart = () => {
             {barData.map((item, idx) => (
               <div key={idx} className='flex justify-center items-end h-full'>
                 <div className='w-full max-w-[34px] h-[170px] bg-[#EAEFF4] rounded-t-xl relative flex items-end overflow-hidden'>
-                  <div
-                    className='w-full rounded-t-xl transition-all duration-300'
+                  <motion.div
+                    className='w-full rounded-t-xl'
+                    initial={{ height: 0 }}
+                    animate={{ height: `${item.value}%` }}
+                    transition={{ duration: 0.8, delay: idx * 0.1, ease: 'easeOut' }}
                     style={{
-                      height: `${item.value}%`,
                       backgroundColor: item.color,
                     }}
                   />

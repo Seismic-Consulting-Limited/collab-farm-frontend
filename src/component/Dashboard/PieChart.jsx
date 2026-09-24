@@ -1,4 +1,4 @@
-import React from 'react'
+import { motion } from 'framer-motion'
 
 const cropStats = [
   { name: 'Maize', count: 98, pct: '39.5%', color: 'hsla(143,32%,86%,1)' },
@@ -31,7 +31,7 @@ const PieChart = () => {
         <div className='relative mx-auto flex h-[min(42vw,190px)] w-[min(42vw,190px)] max-w-full items-center justify-center sm:mx-0'>
           <svg viewBox='0 0 42 42' className='w-full h-full transform -rotate-90'>
             {/* 1. Maize: 39.5% (Top-Right quadrant) */}
-            <circle
+            <motion.circle
               cx='21'
               cy='21'
               r='15.91549430918954'
@@ -40,9 +40,12 @@ const PieChart = () => {
               strokeWidth='10'
               strokeDasharray='39.5 60.5'
               strokeDashoffset='0'
+              initial={{ strokeDashoffset: 100 }}
+              animate={{ strokeDashoffset: 0 }}
+              transition={{ duration: 1, delay: 0.1, ease: 'easeOut' }}
             />
             {/* 2. Groundnut: 10.9% */}
-            <circle
+            <motion.circle
               cx='21'
               cy='21'
               r='15.91549430918954'
@@ -51,9 +54,12 @@ const PieChart = () => {
               strokeWidth='10'
               strokeDasharray='10.9 89.1'
               strokeDashoffset='-39.5'
+              initial={{ strokeDashoffset: 100 }}
+              animate={{ strokeDashoffset: -39.5 }}
+              transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
             />
             {/* 3. Rice: 19.4% (Bottom-Left quadrant) */}
-            <circle
+            <motion.circle
               cx='21'
               cy='21'
               r='15.91549430918954'
@@ -62,9 +68,12 @@ const PieChart = () => {
               strokeWidth='10'
               strokeDasharray='19.4 80.6'
               strokeDashoffset='-50.4'
+              initial={{ strokeDashoffset: 100 }}
+              animate={{ strokeDashoffset: -50.4 }}
+              transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
             />
             {/* 4. Others: 5.6% */}
-            <circle
+            <motion.circle
               cx='21'
               cy='21'
               r='15.91549430918954'
@@ -73,9 +82,12 @@ const PieChart = () => {
               strokeWidth='10'
               strokeDasharray='5.6 94.4'
               strokeDashoffset='-69.8'
+              initial={{ strokeDashoffset: 100 }}
+              animate={{ strokeDashoffset: -69.8 }}
+              transition={{ duration: 1, delay: 0.4, ease: 'easeOut' }}
             />
             {/* 5. Yam: 24.6% (Top-Left quadrant) */}
-            <circle
+            <motion.circle
               cx='21'
               cy='21'
               r='15.91549430918954'
@@ -84,15 +96,23 @@ const PieChart = () => {
               strokeWidth='10'
               strokeDasharray='24.6 75.4'
               strokeDashoffset='-75.4'
+              initial={{ strokeDashoffset: 100 }}
+              animate={{ strokeDashoffset: -75.4 }}
+              transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
             />
           </svg>
 
           {/* Center Counter */}
-          <div className='absolute inset-0 flex items-center justify-center pointer-events-none'>
+          <motion.div
+            className='absolute inset-0 flex items-center justify-center pointer-events-none'
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.6, ease: 'easeOut' }}
+          >
             <span className='font-[manrope] text-3xl font-bold text-gray-900'>
               328
             </span>
-          </div>
+          </motion.div>
         </div>
 
         {/* Legend List (Clean left/right alignment) */}

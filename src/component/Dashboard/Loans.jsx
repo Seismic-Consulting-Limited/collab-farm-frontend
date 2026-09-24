@@ -1,30 +1,10 @@
-import React from 'react'
+import { getStatusDotColor } from '../../utils/statusStyles'
 
 const Loans = ({ name = '', amount, icon }) => {
-  const getDotColor = (label = '') => {
-    const text = label.toLowerCase()
-
-    if (text.includes('repaid') || text.includes('paid')) {
-      return '#12B76A' // Green
-    }
-    if (text.includes('active') || text.includes('ongoing')) {
-      return '#2E90FA' // Blue
-    }
-    if (text.includes('overdue') || text.includes('past')) {
-      return '#F04438' // Red
-    }
-    if (text.includes('pending') || text.includes('partially') || text.includes('approved')) {
-      return '#F79009' // Orange/Amber
-    }
-
-    return null
-  }
-
-  const dotColor = getDotColor(name)
+  const dotColor = getStatusDotColor(name)
 
   return (
     <div className='flex items-center justify-between py-3.5 px-4 sm:px-5 border border-gray-100 rounded-xl bg-white hover:border-gray-200 transition-colors'>
-      {/* Left: Indicator dot (conditional) + Status name */}
       <div className='flex items-center gap-2.5'>
         {dotColor && (
           <span
@@ -37,7 +17,6 @@ const Loans = ({ name = '', amount, icon }) => {
         </span>
       </div>
 
-      {/* Right: Amount + Action arrow */}
       <div className='flex items-center gap-3'>
         <span className='font-[manrope] text-sm font-bold text-gray-900'>
           {amount}

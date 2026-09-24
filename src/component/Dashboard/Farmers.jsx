@@ -1,18 +1,5 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
-
-const getStatusStyle = (status = '') => {
-  switch (status.toLowerCase()) {
-    case 'verified':
-      return 'bg-[#EBF7F5] text-[#134E48] border border-[#9EE2D8]'
-    case 'pending':
-      return 'bg-[#FFF6ED] text-[#C4320A] border border-[#FECDCA]'
-    case 'removed':
-      return 'bg-[#FEF3F2] text-[#B42318] border border-[#FECDCA]'
-    default:
-      return 'bg-gray-100 text-gray-700 border border-gray-200'
-  }
-}
+import { getStatusBadgeStyle } from '../../utils/statusStyles'
 
 const Farmers = ({ 
   id,
@@ -36,7 +23,7 @@ const Farmers = ({
  const navigate = useNavigate()
 
   return (
-    <tr className='hover:bg-gray-50/75 transition-colors border-b border-[#E2E8F0] last:border-b-0'>
+    <>
       {/* 1. Farmer Identity */}
       <td className='py-3.5 px-4'>
         <div className='flex items-center gap-3 min-w-0'>
@@ -80,7 +67,7 @@ const Farmers = ({
       {/* 5. Status Badge */}
       <td className='py-3.5 px-4 whitespace-nowrap'>
         <span
-          className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium font-[manrope] capitalize ${getStatusStyle(
+          className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium font-[manrope] capitalize ${getStatusBadgeStyle(
             Status
           )}`}
         >
@@ -118,7 +105,7 @@ const Farmers = ({
           </button>
         )}
       </td>
-    </tr>
+    </>
   )
 }
 

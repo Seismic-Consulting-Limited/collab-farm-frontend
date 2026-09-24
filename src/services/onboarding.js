@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://bounce-emerald-drench.ngrok-free.dev';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://test-collab-farm.onrender.com';
 
 /**
  * Submit cooperative profile onboarding data
