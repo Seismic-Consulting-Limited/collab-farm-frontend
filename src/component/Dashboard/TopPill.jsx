@@ -1,4 +1,3 @@
-import React from 'react'
 import Logo from '../../assets/Logo.svg'
 import Notification from '../../assets/Notification.svg'
 import Initials from '../../assets/Initials.svg'

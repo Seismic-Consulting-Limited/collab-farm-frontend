@@ -1,5 +1,5 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import Dashboard_Header from './Dashboard_Header'
 import Buton from './Buton'
 import Farmers from './Farmers'
@@ -76,16 +76,23 @@ const RecentFarmers = () => {
             </thead>
 
             <tbody className='divide-y divide-[#E2E8F0] bg-white'>
-              {farmersData.map((farmer) => (
-                <Farmers
+              {farmersData.map((farmer, index) => (
+                <motion.tr
                   key={farmer.id}
-                  FarmersName={farmer.FarmersName}
-                  CropType={farmer.CropType}
-                  Date={farmer.Date}
-                  Time={farmer.Time}
-                  Status={farmer.Status}
-                  Action={More}
-                />
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  className='hover:bg-gray-50/75 transition-colors border-b border-[#E2E8F0] last:border-b-0'
+                >
+                  <Farmers
+                    FarmersName={farmer.FarmersName}
+                    CropType={farmer.CropType}
+                    Date={farmer.Date}
+                    Time={farmer.Time}
+                    Status={farmer.Status}
+                    Action={More}
+                  />
+                </motion.tr>
               ))}
             </tbody>
           </table>

@@ -1,4 +1,4 @@
-import React from 'react'
+import { motion } from 'framer-motion'
 
 const Cards = ({ up, Title, Amount, gains, another, any, className }) => {
   {/*
@@ -10,7 +10,10 @@ const Cards = ({ up, Title, Amount, gains, another, any, className }) => {
         ];
         */}
   return (
-    <div className={`flex min-w-0 flex-col justify-between gap-4 rounded-2xl border border-gray-200 bg-white px-[24px] py-[16px] ${className}`}>
+    <motion.div
+      className={`flex min-w-0 flex-col justify-between gap-4 rounded-2xl border border-gray-200 bg-white px-[24px] py-[16px] ${className}`}
+      whileHover={{ y: -4, transition: { duration: 0.2 } }}
+    >
       <div className='flex items-center gap-2'>
         {another && <img src={another} alt='' className='h-5 w-5 object-contain' />}
         <h1 className='font-[Manrope] text-xs font-normal text-gray-700'>{Title}</h1>
@@ -34,7 +37,7 @@ const Cards = ({ up, Title, Amount, gains, another, any, className }) => {
           </span>
         </p>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
