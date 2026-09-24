@@ -58,7 +58,7 @@ const App = () => {
             <Route element={<ProtectedRoute requireOnboarding={false}><DashboardLayout /></ProtectedRoute>}>
               <Route path='/dashboard' element={<Dashboard />} />
               <Route path='/directory' element={<FarmerDirectory />} />
-              <Route path='/directory/edit' element={<EditFarmer/>}/>
+              <Route path='/directory/edit/:farmerId' element={<EditFarmer/>}/>
               <Route path='/directory/:farmerId' element={<FarmerDetails/>}/>
               <Route path='/directory/add' element={<AddFarmer />} />
               <Route path='/loans' element={<LoansOverview />} />

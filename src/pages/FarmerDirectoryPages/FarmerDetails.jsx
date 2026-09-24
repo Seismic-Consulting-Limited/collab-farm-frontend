@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import LoanHistory from '../../component/FarmerDirectory/LoanHistory';
 import Dashboard_Header from '../../component/Dashboard/Dashboard_Header';
@@ -63,7 +63,7 @@ const FarmerDetails = () => {
           <Buton 
             label='Edit Farmer' 
             icon={EditFarmer} 
-            onClick={() => navigate('/directory/edit')} 
+            onClick={() => navigate(`/directory/edit/${farmerId}`)} 
           />
           <Buton
             label='Remove Farmer'
